@@ -1,15 +1,14 @@
-import React from "react";
-import Nav from "../componets/navbar/nav";
-import Foot from "../componets/Footer/foot";
-import "./model.css";
+import React, { useState } from "react";
 import axios from "axios";
-import { useState } from "react";
-const Model = () => {
+import NavBar from "./NavBar";
+import Foot from "./Foot";
+
+export default function Weather() {
   const [city, setCity] = useState();
   const [weather, setWeather] = useState();
 
-  const handleCityChange = (e) => {
-    setCity(e.target.value);
+  const handleCityChange = (event) => {
+    setCity(event.target.value);
   };
   const fetchWeather = async () => {
     try {
@@ -18,24 +17,25 @@ const Model = () => {
       );
       setWeather(response);
     } catch (error) {
-      alert("Error occur in fetching ", error);
+      console.log("Error fetching weather data", error);
     }
   };
-  const getWeather = () => {
-    fetchWeather(), [];
+  console.log(weather, "weather");
+  const handleClick = () => {
+    fetchWeather();
   };
   return (
-    <>
-      <Nav />
-      <div className="box">
+    <div>
+      <NavBar></NavBar>
+      <div className="weather-container">
         <input
           type="text"
-          placeholder="Enter the city "
+          placeholder="Enter City Name"
           value={city}
           onChange={handleCityChange}
-          required
         />
-        <button onClick={getWeather}>Get Weather</button>
+        <br></br>
+        <button onClick={handleClick}>Get Weather</button>
         {weather && (
           <>
             <div className="weather-info">
@@ -47,9 +47,8 @@ const Model = () => {
           </>
         )}
       </div>
-      <Foot />
-    </>
-  );
-};
 
-export default Model;
+      <Foot></Foot>
+    </div>
+  );
+}

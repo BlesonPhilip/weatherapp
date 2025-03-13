@@ -1,12 +1,15 @@
-import React from "react";
-import "./app.css";
-import Model from "./pages/model";
-const App = () => {
+import "./App.css";
+import Home from "./pages/Home";
+import Weather from "./components/Weather";
+import { Routes, Route } from "react-router-dom";
+
+function App() {
   return (
-    <div>
-      <Model />
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/weather" element={<Weather />} />
+    </Routes>
   );
-};
+}
 
 export default App;
